@@ -3,7 +3,6 @@
 PORTNAME=	evolvere
 DISTVERSION=	1.2dev
 CATEGORIES=	x11-themes kde gnome xfce
-MASTER_SITES=	GHL
 PKGNAMESUFFIX=	-icon-theme
 
 MAINTAINER=	d.akiyakov@gmail.com
@@ -18,17 +17,38 @@ LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
 GH_ACCOUNT=	franksouza183
 GH_PROJECT=	EvolvereSuit
 GH_TAGNAME=	${GH_COMMIT}
-GH_COMMIT=	4e2b436
+GH_COMMIT=	b10683d
 
 USE_GITHUB=	yes
 NO_BUILD=	yes
 
 WRKSRC=		${WRKDIR}/${GH_ACCOUNT}-${GH_PROJECT}-${GH_TAGNAME}/icons
 
-# copy license to WRKSRC
+.include "${.CURDIR}/Makefile.options"
+.include <bsd.port.options.mk>
+
+#exclude folders which is not suitable
+DO_NOT_EXTRACT=	adium-message-style aurorae-themes kde-color-schemes kde-plasma-themes \
+		kvantum-themes wallpapers icons/evolbuntu icons/evolbuntu-dark \
+		icons/evolbuntu-dark-fallback icons/evolbuntu-dark-light-fallback \
+		icons/evolbuntu-vivid icons/evolbuntu-vivid-dark icons/evolbuntu-vivid-dark-fallback \
+		icons/evolbuntu-vivid-dark-light-fallback
+.for dne in ${DO_NOT_EXTRACT}
+EXTRACT_AFTER_ARGS+=	--exclude '${GH_ACCOUNT}-${GH_PROJECT}-${GH_TAGNAME}/${dne}'
+.endfor
+#exclude all icon themes which is not selected
+.for k in ${OPTIONS_MULTI_ICONS}
+.if ${PORT_OPTIONS:M${k}}
+# we need to make a copy of LICENSE in WRKSRC
+.if !target(post-extract) && !exists(${WRKSRC}/LICENSE)
 post-extract:
-	@cd ${WRKSRC}/evolvere && \
-	${CP} LICENSE ../
+	@cd ${WRKSRC}/${${k}_FOLDER} && \
+	${CP} -n LICENSE ../
+.endif
+.else
+EXTRACT_AFTER_ARGS+=	--exclude '${GH_ACCOUNT}-${GH_PROJECT}-${GH_TAGNAME}/icons/${${k}_FOLDER}'
+.endif
+.endfor
 
 # annotate what should be installed
 annotate-install:
@@ -50,14 +70,10 @@ generate-tmpplist:
 				| ${SORT} \
 				>> ${TMPPLIST}
 
-.include "${.CURDIR}/Makefile.options"
-.include <bsd.port.options.mk>
+#.include "${.CURDIR}/Makefile.options"
+#.include <bsd.port.options.mk>
 
 pre-install:
-#remove Ubuntu-related icon sets
-	@cd ${WRKSRC} && \
-	${RM} -rf evolbuntu evolbuntu-dark-fallback evolbuntu-vivid \
-		evolbuntu-vivid-dark-fallback
 .for i in ${OPTIONS_MULTI_ICONS}
 .if ${PORT_OPTIONS:M${i}}
 #replace menu icons with FreeBSD logo icons
@@ -72,7 +88,6 @@ pre-install:
 	${LN} -fs freebsd.svg xfce4-panel-menu.svg && \
 	${LN} -fs freebsd.svg menu.svg
 .endfor
-#
 #temporary issue for Nautilus and Nemo with missing icons sizes
 .for folder in places mimetypes devices status categories apps actions
 	@cd ${WRKSRC}/${${i}_FOLDER}/${folder} && \
@@ -80,15 +95,11 @@ pre-install:
 	${LN} -s 64 32 && ${LN} -s 64 48 && ${LN} -s 64 128 && ${LN} -s 64 256
 .endfor
 #
-#
 .endif
 	@cd ${WRKSRC} && \
 		${RM} ${${i}_FOLDER}/LICENSE && \
 		${COPYTREE_SHARE} ${${i}_FOLDER} \
 		${STAGEDIR}${PREFIX}/share/icons
-.else
-	@cd ${WRKSRC} && \
-		${RM} -rf ${${i}_FOLDER}
 .endif
 .endfor
 
