@@ -1,0 +1,65 @@
+OPTIONS_DEFINE=		FBSDLOGO
+
+OPTIONS_MULTI=		ICONS
+OPTIONS_MULTI_ICONS=	SET11 SET12 SET13 SET14 SET15 SET16 SET17 SET18 SET21 \
+			SET22 SET23 SET24 SET31 SET32 SET33 SET34 SET35 SET36 \
+			SET37 SET38 SET41 SET42 SET43 SET44 SET45 SET46
+
+OPTIONS_DEFAULT=	FBSDLOGO SET11
+
+ICONS_DESC=	Install icon set(s)
+SET11_DESC=	Evolvere icon theme
+SET12_DESC=	Evolvere icon theme (dark environments)
+SET13_DESC=	Sunken folders variant
+SET14_DESC=	Sunken variant (dark environments)
+SET15_DESC=	Vivid Sunken variant
+SET16_DESC=	Vivid Sunken variant (dark environments)
+SET17_DESC=	Flat Vivid Sunken variant
+SET18_DESC=	Flat Vivid Sunken variant (dark environments)
+SET21_DESC=	Black folders variant
+SET22_DESC=	Black folders variant (dark environments)
+SET23_DESC=	Black folders Vivid variant
+SET24_DESC=	Black folders Vivid variant (dark environments)
+SET31_DESC=	Blue folders variant
+SET32_DESC=	Blue folders variant (dark environments)
+SET33_DESC=	Blue folders Vivid variant
+SET34_DESC=	Blue folders Vivid variant (dark environments)
+SET35_DESC=	Blue folders Vivid Sunken variant
+SET36_DESC=	Blue folders Vivid Sunken variant (dark environments)
+SET37_DESC=	Blue folders Flat Vivid variant
+SET38_DESC=	Blue Folders Flat Vivid variant (dark environments)
+SET41_DESC=	Green folders variant
+SET42_DESC=	Green folders variant (dark environments)
+SET43_DESC=	Green folders Vivid variant
+SET44_DESC=	Green folders Vivid variant (dark environments)
+SET45_DESC=	Green folders Vivid Sunken variant
+SET46_DESC=	Green folders Vivid Sunken variant (dark environments)
+
+SET11_FOLDER=	evolvere
+SET12_FOLDER=	evolvere-dark-fallback
+SET13_FOLDER=	evolvere-sunken
+SET14_FOLDER=	evolvere-sunken-dark-fallback
+SET15_FOLDER=	evolvere-vivid-sunken
+SET16_FOLDER=	evolvere-vivid-sunken-dark-fallback
+SET17_FOLDER=	evolvere-flat-vivid-sunken
+SET18_FOLDER=	evolvere-flat-vivid-sunken-dark-fallback
+SET21_FOLDER=	evolvere-black-folders
+SET22_FOLDER=	evolvere-black-folders-dark-fallback
+SET23_FOLDER=	evolvere-black-folders-vivid
+SET24_FOLDER=	evolvere-black-folders-vivid-dark-fallback
+SET31_FOLDER=	evolvere-blue-folders
+SET32_FOLDER=	evolvere-blue-folders-dark-fallback
+SET33_FOLDER=	evolvere-blue-folders-vivid
+SET34_FOLDER=	evolvere-blue-folders-vivid-dark-fallback
+SET35_FOLDER=	evolvere-blue-folders-vivid-sunken
+SET36_FOLDER=	evolvere-blue-folders-vivid-sunken-dark-fallback
+SET37_FOLDER=	evolvere-blue-folders-flat-vivid
+SET38_FOLDER=	evolvere-blue-folders-flat-vivid-dark-fallback
+SET41_FOLDER=	evolvere-green-folders
+SET42_FOLDER=	evolvere-green-folders-dark-fallback
+SET43_FOLDER=	evolvere-green-folders-vivid
+SET44_FOLDER=	evolvere-green-folders-vivid-dark-fallback
+SET45_FOLDER=	evolvere-green-folders-vivid-sunken
+SET46_FOLDER=	evolvere-green-folders-vivid-sunken-dark-fallback
+
+FBSDLOGO_DESC=	Overwrite menu icons by FreeBSD logo
