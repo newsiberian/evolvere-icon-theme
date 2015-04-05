@@ -2,7 +2,8 @@
 For KDE4 users:
 
 If you are faced with the strange behavior of icons, such as icons
-remained part of the previous theme, try to clean cache:
+remained part of the previous theme, try to clean user cache by the
+following command:
 
 #rm -rvf $HOME/.kde4/cache-`hostname`/*
 ******************************************************************
