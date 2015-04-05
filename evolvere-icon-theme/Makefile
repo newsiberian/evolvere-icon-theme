@@ -70,9 +70,6 @@ generate-tmpplist:
 				| ${SORT} \
 				>> ${TMPPLIST}
 
-#.include "${.CURDIR}/Makefile.options"
-#.include <bsd.port.options.mk>
-
 pre-install:
 .for i in ${OPTIONS_MULTI_ICONS}
 .if ${PORT_OPTIONS:M${i}}
