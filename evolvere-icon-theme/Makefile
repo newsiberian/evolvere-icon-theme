@@ -71,15 +71,15 @@ generate-tmpplist:
 				>> ${TMPPLIST}
 
 pre-install:
-.for i in ${OPTIONS_MULTI_ICONS}
-.if ${PORT_OPTIONS:M${i}}
+.for theme in ${OPTIONS_MULTI_ICONS}
+.if ${PORT_OPTIONS:M${theme}}
 #replace menu icons with FreeBSD logo icons
 .if ${PORT_OPTIONS:MFBSDLOGO}
-.for j in 16 18 22 24 64
-	@cd ${WRKSRC}/${${i}_FOLDER}/places/${j} && \
-	${LN} -fs ../../apps/${j}/freebsd.svg start-here-kde.svg && \
-	${LN} -fs ../../apps/${j}/freebsd.svg start-here.svg && \
-	cd ${WRKSRC}/${${i}_FOLDER}/apps/${j} && \
+.for size in 16 18 22 24 64
+	@cd ${WRKSRC}/${${theme}_FOLDER}/places/${size} && \
+	${LN} -fs ../../apps/${size}/freebsd.svg start-here-kde.svg && \
+	${LN} -fs ../../apps/${size}/freebsd.svg start-here.svg && \
+	cd ${WRKSRC}/${${theme}_FOLDER}/apps/${size} && \
 	${LN} -fs freebsd.svg start-here.svg && \
 	${LN} -fs freebsd.svg start-here-kde.svg && \
 	${LN} -fs freebsd.svg xfce4-panel-menu.svg && \
@@ -87,15 +87,15 @@ pre-install:
 .endfor
 #temporary issue for Nautilus and Nemo with missing icons sizes
 .for folder in places mimetypes devices status categories apps actions
-	@cd ${WRKSRC}/${${i}_FOLDER}/${folder} && \
+	@cd ${WRKSRC}/${${theme}_FOLDER}/${folder} && \
 	${RM} -rf 32 48 128 256 && \
 	${LN} -s 64 32 && ${LN} -s 64 48 && ${LN} -s 64 128 && ${LN} -s 64 256
 .endfor
 #
 .endif
 	@cd ${WRKSRC} && \
-		${RM} ${${i}_FOLDER}/LICENSE && \
-		${COPYTREE_SHARE} ${${i}_FOLDER} \
+		${RM} ${${theme}_FOLDER}/LICENSE && \
+		${COPYTREE_SHARE} ${${theme}_FOLDER} \
 		${STAGEDIR}${PREFIX}/share/icons
 .endif
 .endfor
