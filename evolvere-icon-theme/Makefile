@@ -37,16 +37,16 @@ DO_NOT_EXTRACT=	adium-message-style aurorae-themes kde-color-schemes kde-plasma-
 EXTRACT_AFTER_ARGS+=	--exclude '${GH_ACCOUNT}-${GH_PROJECT}-${GH_TAGNAME}/${dne}'
 .endfor
 #exclude all icon themes which is not selected
-.for k in ${OPTIONS_MULTI_ICONS}
-.if ${PORT_OPTIONS:M${k}}
+.for unselected_theme in ${OPTIONS_MULTI_ICONS}
+.if ${PORT_OPTIONS:M${unselected_theme}}
 # we need to make a copy of LICENSE in WRKSRC
 .if !target(post-extract) && !exists(${WRKSRC}/LICENSE)
 post-extract:
-	@cd ${WRKSRC}/${${k}_FOLDER} && \
+	@cd ${WRKSRC}/${${unselected_theme}_FOLDER} && \
 	${CP} -n LICENSE ../
 .endif
 .else
-EXTRACT_AFTER_ARGS+=	--exclude '${GH_ACCOUNT}-${GH_PROJECT}-${GH_TAGNAME}/icons/${${k}_FOLDER}'
+EXTRACT_AFTER_ARGS+=	--exclude '${GH_ACCOUNT}-${GH_PROJECT}-${GH_TAGNAME}/icons/${${unselected_theme}_FOLDER}'
 .endif
 .endfor
 
