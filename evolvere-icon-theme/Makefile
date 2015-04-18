@@ -16,13 +16,12 @@ LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
 
 GH_ACCOUNT=	franksouza183
 GH_PROJECT=	EvolvereSuit
-GH_TAGNAME=	${GH_COMMIT}
-GH_COMMIT=	b10683d
+GH_TAGNAME=	902379c
 
 USE_GITHUB=	yes
 NO_BUILD=	yes
 
-WRKSRC=		${WRKDIR}/${GH_ACCOUNT}-${GH_PROJECT}-${GH_TAGNAME}/icons
+WRKSRC=		${WRKDIR}/${GH_PROJECT}-${GH_TAGNAME}/icons
 
 .include "${.CURDIR}/Makefile.options"
 .include <bsd.port.options.mk>
@@ -32,21 +31,21 @@ DO_NOT_EXTRACT=	adium-message-style aurorae-themes kde-color-schemes kde-plasma-
 		kvantum-themes wallpapers icons/evolbuntu icons/evolbuntu-dark \
 		icons/evolbuntu-dark-fallback icons/evolbuntu-dark-light-fallback \
 		icons/evolbuntu-vivid icons/evolbuntu-vivid-dark icons/evolbuntu-vivid-dark-fallback \
-		icons/evolbuntu-vivid-dark-light-fallback
+		icons/evolbuntu-vivid-dark-light-fallback icons/apply-gnome-workaround.sh
 .for dne in ${DO_NOT_EXTRACT}
-EXTRACT_AFTER_ARGS+=	--exclude '${GH_ACCOUNT}-${GH_PROJECT}-${GH_TAGNAME}/${dne}'
+EXTRACT_AFTER_ARGS+=	--exclude '${GH_PROJECT}-${GH_TAGNAME}/${dne}'
 .endfor
 #exclude all icon themes which is not selected
-.for unselected_theme in ${OPTIONS_MULTI_ICONS}
-.if ${PORT_OPTIONS:M${unselected_theme}}
+.for unselected in ${OPTIONS_MULTI_ICONS}
+.if ${PORT_OPTIONS:M${unselected}}
 # we need to make a copy of LICENSE in WRKSRC
 .if !target(post-extract) && !exists(${WRKSRC}/LICENSE)
 post-extract:
-	@cd ${WRKSRC}/${${unselected_theme}_FOLDER} && \
+	@cd ${WRKSRC}/${${unselected}_FOLDER} && \
 	${CP} -n LICENSE ../
 .endif
 .else
-EXTRACT_AFTER_ARGS+=	--exclude '${GH_ACCOUNT}-${GH_PROJECT}-${GH_TAGNAME}/icons/${${unselected_theme}_FOLDER}'
+EXTRACT_AFTER_ARGS+=	--exclude '${GH_PROJECT}-${GH_TAGNAME}/icons/${${unselected}_FOLDER}'
 .endif
 .endfor
 
